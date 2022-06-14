@@ -1,3 +1,1 @@
-def score_board()
-    {}
-end
+score_board = {}

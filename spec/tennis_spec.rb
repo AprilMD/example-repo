@@ -1,33 +1,39 @@
 require_relative '../tennis_scores'
 
-def score_board(*winner)
-    scores = {
-        player1: 0, player2: 0
-        }
-    if winner[0]== 'player1'
-        scores[:player1] += 15
-        return scores
-    else
-        return scores
-   end
+# input: 1,2,1,1,2
+
+def tennis_score(*winner)
+    player1_score = 0
+    player2_score = 0
+
+    player1_score += winner.count(1)
+    player2_score += winner.count(2)
+
+    displayed_score_options = ['love', 15, 30, 40]
+
+    return "#{displayed_score_options[player1_score]}-#{displayed_score_options[player2_score]}"
 end
 
-describe "tennis scores" do
-    it 'returns a dictionary' do
-        expect(score_board.class).to eql(Hash)
+describe "tennis score board" do
+    it 'returns 0-0 when input "" ' do
+        expect(tennis_score()).to eq('love-love')
     end
 
-    it 'returns score 0 for player 1' do
-        expect(score_board[:player1]).to eql(0)
+    it 'returns 1-0 when input "1" ' do
+        expect(tennis_score(1)).to eq('15-love')
     end
 
-    it 'returns score 0 for player 2' do
-        expect(score_board[:player2]).to eql(0)
+    it 'returns 0-1 when input "2" ' do
+        expect(tennis_score(2)).to eq('love-15')
     end
 
-    it 'returns 15, 0 for player 1 wins first round' do
-        expect(score_board('player1')).to eql({:player1 => 15, :player2 => 0})
+    it 'returns 2-0 when input "1,1"' do
+        expect(tennis_score(1,1)).to eq('30-love')
     end
+
+    it 'returns 0-3 when input "2,2,2"' do
+        expect(tennis_score(2,2,2)).to eq('love-40')
+    end    
 end
 
 
